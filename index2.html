@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Document</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="application/javascript"></script>
+<style>
+div{display:inline-block; margin:10px;}
+img{width:50px;}
+</style>
+</head>
+
+<body ng-app="myApp">
+	<div ng-controller="myController as store">
+        <div ng-repeat="results in store.result">
+            <h3> Name {{ results.name }}</h3>
+            <h3> Position {{ results.position }} </h3>
+            <div ng-repeat="mimage in results.images" ng-show= "results.images.length">
+            	<img ng-src="{{ mimage }}"  alt="image" />
+            </div>
+        </div>
+	</div>   
+    <script>
+       var app = angular.module("myApp", []);
+        (function(){
+            app.controller('myController', function(){
+            this.result =  [
+                    {
+                      name: 'demo1',
+                      position: 'ui',
+                      images : ['learn-icon.png', 'home-icon.png']
+                    },
+                    {
+                      name: 'demo',
+                      position: 'ux',
+                      images: ['learn-icon.png', 'home-icon.png']
+                    }
+                        ];
+            });
+
+        })();
+            
+    </script>
+  <!-- without controller nav tabs working in below example -->
+  <div ng-init="tabs=1">
+       <ul class="nav nav-pills">
+          <li ng-class="{ 'active': tabs ===1 }"><a href ng-click="tabs = 1">Home</a></li>
+          <li ng-class="{ 'active': tabs ===2 }"><a href ng-click="tabs = 2">Menu </a></li>
+        </ul>
+      <div class="tab-content">
+          <div ng-show="tabs === 1" class="tab-pane fade in active">
+                <h3>HOME</h3>
+                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+          </div>
+          <div ng-show="tabs === 2" class="tab-pane fade in active">
+                <h3>Menu</h3>
+                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+          </div>
+      </div>
+  
+  </div>
+    
+  <div style="background:#D1E1CE;" ng-controller="tabController as panel">
+    <ul class="nav nav-pills">
+      <li ng-class="{active: panel.activeSet(1) }">
+        <a href ng-click="panel.selectTabs(1)">Home</a>
+      </li>
+      <li ng-class="{active:panel.activeSet(2) }">
+        <a href ng-click="panel.selectTabs(2)">Menu</a>
+      </li>
+      <li ng-class="{active:panel.activeSet(3) }">
+        <a href ng-click="panel.selectTabs(3)">Review</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+        <div ng-show="panel.activeSet(1)">
+              <h3>HOME</h3>
+              <p>{{ panel.product.description }}</p>
+        </div>
+        <div ng-show="panel.activeSet(2)">
+              <h3>Menu</h3>
+              <p>{{ panel.product.description }}</p>
+        </div>
+         <div ng-show="panel.activeSet(3)">
+              <h3>Review</h3>
+              <ul ng-repeat="reviews in panel.product.review">
+                <li>{{reviews.star}}</li>
+                <li>{{reviews.body}}</li>
+                <li>{{reviews.author}}</li>
+              </ul>
+              <form>
+                <blockquote>
+                  <span>Stars: {{reviews.star}}</span>
+                  <span>Body: {{reviews.body}}</span>
+                  <span>Author: {{reviews.author}}</span>
+                </blockquote>
+                <fieldset>
+                  <select ng-model="reviews.star">
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                  <input type="text" name="body" ng-model="reviews.body">
+                  <input type="email" name="auhtor" ng-model="reviews.author">
+                </fieldset>
+              </form>
+        </div>
+    </div>
+  
+  </div>
+  <script>
+    
+	   (function(){
+        app.controller('tabController', function(){		 
+  			this.tabs=1;
+        this.selectTabs = function(settabs){
+          this.tabs = settabs;
+        }
+        this.activeSet = function(check){
+          return this.tabs === check;
+        }
+        this.product = gems;
+			 });
+
+      var gems = { 
+                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    review: [
+                              { star: '3star',
+                                author: 'Lorum',
+                                body: 'Lorem ipsum dolor'
+                              },
+                               { star: '4star',
+                                author: 'Aweworum',
+                                body: 'Asdfsd sdfsdfLorem ipsum dolor'
+                              }     
+                            ]
+                  };
+            
+    		})();
+    </script>
+</body>
+</html>

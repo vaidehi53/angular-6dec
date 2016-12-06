@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test angular</title>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+	<script type="text/javascript" src="angular.js"></script>
+
+</head>
+<body ng-app="apps">
+<div ng-controller="Storecontroller as store">
+	<h1>Name {{store.result.name}}</h1>
+	<h2>Position {{store.result.position}}</h2>
+	<div>
+		<img ng-src="">
+	</div>
+</div>
+
+<script>
+	(function(){
+		var app = angular.module('apps', []);
+		app.controller('Storecontroller', function(){
+			this.result = {name : 'vaidehi', 
+							position : 'UI',
+							images: "icon2.png"
+						};
+		});
+		
+	})();
+
+</script>
+
+</body>
+</html>
+
+
+
+

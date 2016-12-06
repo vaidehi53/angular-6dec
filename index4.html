@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>angular js</title>
+	<script type="text/javascript" src="angular.js"></script>
+
+</head>
+
+<body ng-app="myapp">
+<div style="background-color: #48cfad;" ng-controller="Storecontroller as store">
+	<div ng-repeat = "product in store.result" ng-hide = "product.soldOut">
+		<h3>{{ product.name }}</h3>
+		<h4>{{ product.price | currency }}</h4>
+		<button ng-show="product.canPurchase">cart</button>
+	</div>
+</div>
+<script type="text/javascript">
+(function(){
+	var app = angular.module("myapp",[]);
+	app.controller("Storecontroller", function(){
+		this.result =  gems;
+	});
+	var gems = [
+	{
+		name : 'Kuku',
+		DOB  : 'May 90',
+		price : 23,
+		canPurchase : true, // true then only show
+		soldOut : false
+	},
+	{
+		name : 'Kukuffffffffff',
+		DOB  : 'May 90',
+		price : 23,
+		canPurchase : false, // true then only show
+		soldOut : false
+	}
+
+	]
+})();
+
+	
+</script>
+
+</body>
+</html>

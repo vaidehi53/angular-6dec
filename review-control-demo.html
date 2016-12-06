@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Document</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="application/javascript"></script>
+<style>
+div{display:inline-block; margin:10px;}
+img{width:50px;}
+</style>
+</head>
+
+<body ng-app="myApp">
+	<div ng-controller="storeController as store">
+    <div ng-repeat="productin in store.product">
+       <div style="background:#D1E1CE;" ng-controller="tabController as panel">
+    <ul class="nav nav-pills">
+      <li ng-class="{active: panel.activeSet(1) }">
+        <a href ng-click="panel.selectTabs(1)">Homes</a>
+      </li>
+      <li ng-class="{active:panel.activeSet(2) }">
+        <a href ng-click="panel.selectTabs(2)">Menu</a>
+      </li>
+      <li ng-class="{active:panel.activeSet(3) }">
+        <a href ng-click="panel.selectTabs(3)">Review</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+        <div ng-show="panel.activeSet(1)">
+              <h3>HOME</h3>
+              <p>{{ productin.description }}</p>
+        </div>
+        <div ng-show="panel.activeSet(2)">
+              <h3>Menu</h3>
+              <p>{{ productin.description }}</p>
+        </div>
+         <div ng-show="panel.activeSet(3)">
+              <h3>Review</h3>
+              <ul>
+                <li ng-repeat="reviews in productin.review">
+                  <blockquote>
+                    <strong>{{reviews.star}} Stars</strong>
+                    {{reviews.body}}
+                    <cite class="clearfix">—{{reviews.author}}</cite>
+                  </blockquote>
+                </li>
+              </ul>
+              <form ng-controller="reviewController as revCtrl" ng-submit="revCtrl.addReview(product)">
+                <blockquote>
+                  <span>Stars: {{revCtrl.reviews.star}}</span>
+                  <span>Body: {{revCtrl.reviews.body}}</span>
+                  <span>Author: {{revCtrl.reviews.author}}</span>
+                </blockquote>
+                <fieldset>  
+                   <select ng-model="revCtrl.reviews.star" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars">
+                  <option value="">Rate the Product</option>
+                </select>
+                  <input type="text" name="body" ng-model="revCtrl.reviews.body">
+                  <input type="email" name="auhtor" ng-model="revCtrl.reviews.author">
+                  <input type="submit" value="Submit">
+                </fieldset>
+              </form>
+        </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <script>
+   
+	   (function(){
+       var app = angular.module("myApp", []);
+
+      app.controller('storeController', function(){
+        this.product= gems;
+      });
+        app.controller('tabController', function(){		 
+    			this.tabs=1;
+          this.selectTabs = function(settabs){
+            this.tabs = settabs;
+          }
+          this.activeSet = function(check){
+            return this.tabs === check;
+          }
+        //  this.product = gems;
+			 });
+       app.controller('reviewController', function(){
+          this.reviews = {};
+          this.addReview = function(productin){
+             //alert(this.reviews);
+            productin.review.push(this.reviews);
+            this.reviews = {};
+          };
+       });
+      var gems =[
+                  { 
+                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    review: [
+                              { star: 3,
+                                author: 'Lorum',
+                                body: 'Lorem ipsum dolor'
+                              },
+                               { star: 4,
+                                author: 'Aweworum',
+                                body: 'Asdfsd sdfsdfLorem ipsum dolor'
+                              }     
+                            ]
+                  },
+                  { 
+                    description: "Asefefeepsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    review: [
+                              { star: 3,
+                                author: 'Lorum',
+                                body: 'Lorem ipsum dolor'
+                              },
+                               { star: 4,
+                                author: 'Aweworum',
+                                body: 'Asdfsd sdfsdfLorem ipsum dolor'
+                              }     
+                            ]
+                  }
+
+                ]; 
+            
+    		})();
+    </script>
+</body>
+</html>

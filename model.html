@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Model Test</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="application/javascript"></script>
+</head>
+
+<body ng-app="myapp">
+<div ng-controller="formController as forms">
+	<div ng-repeat="products in forms.product">
+	<p>{{products.name}}</p>
+		<ul>
+		<!-- <li>{{main.name}}</li> -->
+		<!-- <li ng-repeat="rev in main.review">Review
+				<p>Stars: {{rev.star}}</p>
+				<p>{{rev.body}}</p>
+				<p>{{rev.author}}</p>
+		</li> -->
+		</ul>
+	</div>
+</div>
+
+<script>
+	(function(){
+		var app = angular.module("myapp", []);
+		app.controller("formController", function(){
+			this.product =  [
+			{
+				name:'brian',
+				review:[{
+					star: '3star',
+					body: 'sdfkjjkff sjdfsjdifjiof sdcisjdficuas ic',
+					author: 'Abc'
+					},
+					{
+						star: '4star',
+						body: 'sdfkjjkff sjdfsjdifjiof sdcisjdficuas ic',
+						author: 'Abc'
+					}]
+
+			},
+			{
+				name:'Messi',
+				review:[{
+					star: 3star,
+					body: sdfkjjkff sjdfsjdifjiof sdcisjdficuas ic,
+					author: 'Abc'
+					},
+					{
+						star: 4star,
+						body: sdfkjjkff sjdfsjdifjiof sdcisjdficuas ic,
+						author: 'Abc'
+					}]
+			}];
+		});
+
+	})();
+</script>
+
+<div>
+	<form>
+		<fieldset>
+			<select ng-model="review.star">
+				<option></option>
+			</select>
+		</fieldset>
+	</form>
+</div>
+
+
+
+</body>
+</html>
